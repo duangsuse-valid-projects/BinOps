@@ -1,0 +1,22 @@
+name:                BinOps
+version:             0.1.0.0
+-- synopsis:            
+description:         Naive binary operation calculator, supports logN, sin, cos, tan, hexadecimal numbers
+homepage:            https://github.com/duangsuse/BinOps
+license:             PublicDomain
+license-file:        LICENSE
+author:              duangsuse
+maintainer:          fedora-opensuse@outlook.com
+copyright:           2019
+category:            Text
+build-type:          Simple
+extra-source-files:  ChangeLog.md, README.md
+cabal-version:       >=1.10
+
+executable BinOps
+  main-is:             Main.hs
+  other-modules:       BinOps.Eval BinOps.Model BinOps.Parser
+  -- other-extensions:    
+  build-depends:       base >=4.10 && <4.11, readline >=1.0.3
+  -- hs-source-dirs:      
+  default-language:    Haskell2010
