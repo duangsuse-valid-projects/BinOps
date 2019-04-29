@@ -49,12 +49,16 @@ pretty = show . bParse
 -- | Main Calculator REPL
 main :: IO ()
 main = do
-  putStrLn "Sigma :: + - * / ** mod unm logN sin cos tan 0xFF_FF 2.1"
+  putStrLn "Sigma :: + - * / ** mod unm logN sin cos tan 0xFF_FF 2.1 :q"
+
+  let keyBind = (\i c -> doExit)
+    in bindKey 'Q' keyBind >> (bindKey 'q' keyBind)
+
   forever $ catch (do
     maybeLine <- readline "Σ "
 
     case maybeLine of
-      Nothing -> return ()
+      Nothing -> putStrLn "EOT" >> doExit
       Just ":exit" -> doExit
       Just ":q" -> doExit
       Just line -> do
@@ -63,11 +67,11 @@ main = do
 
   where
     runCode str = do
-      (putStr "We got: ") >> putStrLn str
+      --(putStr "We got: ") >> putStrLn str
       validate str
       putStr " = " >> (putStrLn $ pretty str)
       putStr " = "
-      putStr . show $ calc str
+      putStrLn . show $ calc str
     handler :: ArithException -> IO ()
     handler e = (putStr $ "[E] " ++ handle' e) >> putStrLn ""
     handle' :: ArithException -> String
